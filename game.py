@@ -29,8 +29,10 @@ back_arrow = pygame.transform.scale(pygame.image.load('arrow.png'), (50,50))
 
 musical = pygame.mixer.music.load('mus.mp3')
 pop = pygame.mixer.Sound('pop.mp3')
+error = pygame.mixer.Sound('error.mp3')
 pygame.mixer.music.set_volume(0.2)
 pygame.mixer.Sound.set_volume(pop, 0.1)
+pygame.mixer.Sound.set_volume(error, 0.2)
 pygame.mixer.music.play(-1)
 
 running = True
@@ -59,6 +61,7 @@ try:
 except:
     with open("highscore.txt", "w") as file:
         file.write(str(score))
+        high_score = score
 
 font = pygame.font.Font('freesansbold.ttf', 20)
 menufont = pygame.font.Font('freesansbold.ttf', 40)
@@ -246,6 +249,8 @@ while running:
                 elif not_starting == False and Isitend == False:
                     if score > 0:
                         score -= 1
+                    if effectsound == True:
+                        error.play()
 
                 if option_rect.collidepoint((mouse_x,mouse_y)) and not_starting == True and Isitend == False:
                     Optioning = True
